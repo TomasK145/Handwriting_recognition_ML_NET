@@ -16,10 +16,10 @@ namespace MulticlassClassificationML.ConsoleApp
 {
     public static class ModelBuilder
     {
-        private static string TRAIN_DATA_FILEPATH = @"optdigits.csv";
+        private static string TRAIN_DATA_FILEPATH = @"../../../../../dataset/optdigits.csv";
         private static string MODEL_FILEPATH = @"../../../../MulticlassClassificationML.Model/MLModel.zip";
 
-        // Create MLContext to be shared across the model creation workflow objects 
+        // Create MLContext to be shared across the model creation workflow objects
         // Set a random seed for repeatable/deterministic results across multiple trainings.
         private static MLContext mlContext = new MLContext(seed: 1);
 
@@ -52,7 +52,7 @@ namespace MulticlassClassificationML.ConsoleApp
                                       .Append(mlContext.Transforms.Concatenate("Features", "PixelValues"))
                                       .AppendCacheCheckpoint(mlContext);
 
-            // Set the training algorithm 
+            // Set the training algorithm
             var trainer = mlContext.MulticlassClassification.Trainers.OneVersusAll(mlContext.BinaryClassification.Trainers.FastTree(labelColumnName: "Number", featureColumnName: "Features"), labelColumnName: "Number")
                                       .Append(mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel", "PredictedLabel"));
             var trainingPipeline = dataProcessPipeline.Append(trainer);

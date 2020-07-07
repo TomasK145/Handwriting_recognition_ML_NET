@@ -10,10 +10,10 @@ namespace MulticlassClassificationML.ConsoleApp
     class Program
     {
         //Machine Learning model to load and use for predictions
-        private const string MODEL_FILEPATH = @"MLModel.zip";
+        private const string MODEL_FILEPATH = @"../../../../MulticlassClassificationML.Model/MLModel.zip"; // @"MLModel.zip";
 
-        //Dataset to use for predictions 
-        private const string DATA_FILEPATH = @"optdigits.csv";
+        //Dataset to use for predictions
+        private const string DATA_FILEPATH = @"../../../../../dataset/optdigits.csv"; // @"optdigits.csv";
 
         static void Main(string[] args)
         {
@@ -25,7 +25,7 @@ namespace MulticlassClassificationML.ConsoleApp
             ITransformer mlModel = mlContext.Model.Load(GetAbsolutePath(MODEL_FILEPATH), out DataViewSchema inputSchema);
             var predEngine = mlContext.Model.CreatePredictionEngine<ModelInput, ModelOutput>(mlModel);
 
-            // Create sample data to do a single prediction with it 
+            // Create sample data to do a single prediction with it
             ModelInput sampleData = CreateSingleDataSample(mlContext, DATA_FILEPATH);
 
             // Try a single prediction
@@ -41,7 +41,7 @@ namespace MulticlassClassificationML.ConsoleApp
         // You can change this code and create your own sample data here (Hardcoded or from any source)
         private static ModelInput CreateSingleDataSample(MLContext mlContext, string dataFilePath)
         {
-            // Read dataset to get a single row for trying a prediction          
+            // Read dataset to get a single row for trying a prediction
             IDataView dataView = mlContext.Data.LoadFromTextFile<ModelInput>(
                                             path: dataFilePath,
                                             hasHeader: true,

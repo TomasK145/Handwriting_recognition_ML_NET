@@ -37,7 +37,7 @@ namespace MulticlassClassification.Controllers
             input.PixelValues = datasetValue.ToArray();
             ModelOutput result = predEngine.Predict(input);
 
-            return Ok(new { prediction = result.Prediction, dataset = string.Join(",", datasetValue) });
+            return Ok(new { prediction = result.Prediction, score = string.Join(";", result.Score.OrderByDescending(s => s).Select((s, i) => $"number: {i} - score: {s} ").ToList()), dataset = string.Join(",", datasetValue) });
         }
 
         private List<float> GetDatasetValuesFromImage(string base64Image)

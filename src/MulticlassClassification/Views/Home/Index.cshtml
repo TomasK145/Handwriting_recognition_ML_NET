@@ -7,6 +7,7 @@
     <canvas id="myCanvas" width="256" height="256" style="border:2px solid black"></canvas>
     <br /><br />
     <h1 id="prediction">*</h1>
+    <h2 id="score">*</h2>
     <button id="clearArea" class="btn btn-lg btn-danger">Clear Area</button>
     <button id="send" class="btn btn-lg btn-success">Send</button>
 </div>
@@ -78,6 +79,8 @@
         }).done(function (msg) {
             console.log(msg.dataset);
             $("#prediction").text(msg.prediction);
+            //$("#score").text(msg.score);
+            console.log(msg.score);
         });
     }
 
